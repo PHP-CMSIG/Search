@@ -131,6 +131,72 @@ abstract class AbstractSearcherTestCase extends TestCase
         }
     }
 
+    public function testSearchConditionWithHighlight(): void
+    {
+        $documents = TestingHelper::createComplexFixtures();
+
+        $schema = self::getSchema();
+
+        foreach ($documents as $document) {
+            self::$taskHelper->tasks[] = self::$indexer->save(
+                $schema->indexes[TestingHelper::INDEX_COMPLEX],
+                $document,
+                ['return_slow_promise_result' => true],
+            );
+        }
+        self::$taskHelper->waitForAll();
+
+        $search = new SearchBuilder($schema, self::$searcher);
+        $search->index(TestingHelper::INDEX_COMPLEX);
+        $search->addFilter(new Condition\SearchCondition('Blog'));
+        $search->highlight(['title'], '<mark>', '</mark>');
+
+        $expectedDocumentA = $documents[0];
+        $expectedDocumentA['_formatted']['title'] = \str_replace(
+            'Blog',
+            '<mark>Blog</mark>',
+            $expectedDocumentA['title'] ?? '',
+        );
+        $expectedDocumentB = $documents[1];
+        $expectedDocumentB['_formatted']['title'] = \str_replace(
+            'Blog',
+            '<mark>Blog</mark>',
+            $expectedDocumentB['title'] ?? '',
+        );
+
+        $expectedDocumentsVariantA = [
+            $expectedDocumentA,
+            $expectedDocumentB,
+        ];
+        $expectedDocumentsVariantB = [
+            $expectedDocumentB,
+            $expectedDocumentA,
+        ];
+
+        $loadedDocuments = [...$search->getResult()];
+        $this->assertCount(2, $loadedDocuments);
+
+        $this->assertTrue(
+            $expectedDocumentsVariantA === $loadedDocuments
+            || $expectedDocumentsVariantB === $loadedDocuments,
+            'Not correct documents where found.',
+        );
+
+        $search = new SearchBuilder($schema, self::$searcher);
+        $search->index(TestingHelper::INDEX_COMPLEX);
+        $search->addFilter(new Condition\SearchCondition('Thing'));
+
+        $this->assertSame([$documents[2]], [...$search->getResult()]);
+
+        foreach ($documents as $document) {
+            self::$taskHelper->tasks[] = self::$indexer->delete(
+                $schema->indexes[TestingHelper::INDEX_COMPLEX],
+                $document['uuid'],
+                ['return_slow_promise_result' => true],
+            );
+        }
+    }
+
     public function testNoneSearchableFields(): void
     {
         $documents = TestingHelper::createComplexFixtures();
