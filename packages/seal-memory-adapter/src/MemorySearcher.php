@@ -34,6 +34,8 @@ final class MemorySearcher implements SearcherInterface
     {
         $documents = [];
 
+        $searchTerms = [];
+
         /** @var Index $index */
         foreach ([$search->index] as $index) {
             $indexDocuments = MemoryStorage::getDocuments($index);
@@ -45,7 +47,7 @@ final class MemorySearcher implements SearcherInterface
             }
 
             foreach ($search->filters as $filter) {
-                $indexDocuments = $this->filterDocuments($index, $indexDocuments, $filter);
+                $indexDocuments = $this->filterDocuments($index, $indexDocuments, $filter, $searchTerms);
             }
 
             foreach ($indexDocuments as $document) {
@@ -66,8 +68,40 @@ final class MemorySearcher implements SearcherInterface
 
         $documents = \array_slice($documents, $search->offset, $search->limit);
 
-        $generator = (function () use ($documents): \Generator {
+        $generator = (function () use ($documents, $search, $searchTerms): \Generator {
             foreach ($documents as $document) {
+                foreach ($search->highlightFields as $highlightField) {
+                    $highlightFieldContent = \json_encode($document[$highlightField], \JSON_THROW_ON_ERROR);
+                    foreach ($searchTerms as $searchTerm) {
+                        $highlightFieldContent = \str_replace(
+                            $searchTerm,
+                            $search->highlightPreTag . $searchTerm . $search->highlightPostTag,
+                            $highlightFieldContent,
+                        );
+                    }
+
+                    $highlightFieldContent = \str_replace(
+                        $search->highlightPostTag . $search->highlightPostTag,
+                        '',
+                        $highlightFieldContent,
+                    );
+
+                    $highlightFieldContent = \str_replace(
+                        $search->highlightPostTag . ' ' . $search->highlightPostTag,
+                        ' ',
+                        $highlightFieldContent,
+                    );
+
+                    $document['_formatted'] ??= [];
+
+                    \assert(
+                        \is_array($document['_formatted']),
+                        'Document with key "_formatted" expected to be array.',
+                    );
+
+                    $document['_formatted'][$highlightField] = \json_decode($highlightFieldContent, true, 512, \JSON_THROW_ON_ERROR);
+                }
+
                 yield $document;
             }
         });
@@ -80,10 +114,11 @@ final class MemorySearcher implements SearcherInterface
 
     /**
      * @param array<array<string, mixed>> $documents
+     * @param string[] $searchTerms
      *
      * @return array<array<string, mixed>>
      */
-    private function filterDocuments(Index $index, array $documents, object $filter): array
+    private function filterDocuments(Index $index, array $documents, object $filter, array &$searchTerms): array
     {
         $filteredDocuments = [];
 
@@ -99,6 +134,7 @@ final class MemorySearcher implements SearcherInterface
 
                 $text = \json_encode($searchableDocument, \JSON_THROW_ON_ERROR);
                 $terms = \explode(' ', $filter->query);
+                $searchTerms = \array_unique([...$searchTerms, ...$terms]);
 
                 foreach ($terms as $term) {
                     if (!\str_contains($text, $term)) {
@@ -285,7 +321,7 @@ final class MemorySearcher implements SearcherInterface
             } elseif ($filter instanceof Condition\AndCondition) {
                 $subDocuments = [];
                 foreach ($filter->conditions as $subFilter) {
-                    $subDocuments = [...$subDocuments, ...$this->filterDocuments($index, [$document], $subFilter)];
+                    $subDocuments = [...$subDocuments, ...$this->filterDocuments($index, [$document], $subFilter, $searchTerms)];
                 }
 
                 if (\count($filter->conditions) !== \count($subDocuments)) {
@@ -294,7 +330,7 @@ final class MemorySearcher implements SearcherInterface
             } elseif ($filter instanceof Condition\OrCondition) {
                 $subDocuments = [];
                 foreach ($filter->conditions as $subFilter) {
-                    $subDocuments = [...$subDocuments, ...$this->filterDocuments($index, [$document], $subFilter)];
+                    $subDocuments = [...$subDocuments, ...$this->filterDocuments($index, [$document], $subFilter, $searchTerms)];
                 }
 
                 if ([] === $subDocuments) {
