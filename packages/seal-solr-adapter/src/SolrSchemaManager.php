@@ -148,7 +148,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'type' => $field->searchable ? 'text_general' : 'string',
                     'indexed' => $field->searchable,
                     'docValues' => $field->filterable || $field->sortable,
-                    'stored' => false,
+                    'stored' => true, // required to be set to stored for highlighting
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
                 ],
