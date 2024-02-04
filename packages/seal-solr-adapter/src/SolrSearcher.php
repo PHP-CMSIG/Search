@@ -21,6 +21,7 @@ use CmsIg\Seal\Search\Condition;
 use CmsIg\Seal\Search\Result;
 use CmsIg\Seal\Search\Search;
 use Solarium\Client;
+use Solarium\Component\Result\Highlighting\Highlighting;
 use Solarium\Core\Query\DocumentInterface;
 
 final class SolrSearcher implements SearcherInterface
@@ -101,10 +102,17 @@ final class SolrSearcher implements SearcherInterface
             $query->addSort($field, $direction);
         }
 
+        if ([] !== $search->highlightFields) {
+            $highlighting = $query->getHighlighting();
+            $highlighting->setFields(\implode(', ', $search->highlightFields));
+            $highlighting->setSimplePrefix($search->highlightPreTag);
+            $highlighting->setSimplePostfix($search->highlightPostTag);
+        }
+
         $result = $this->client->select($query);
 
         return new Result(
-            $this->hitsToDocuments($search->index, $result->getDocuments()),
+            $this->hitsToDocuments($search->index, $result->getDocuments(), $result->getHighlighting()),
             (int) $result->getNumFound(),
         );
     }
@@ -114,23 +122,51 @@ final class SolrSearcher implements SearcherInterface
      *
      * @return \Generator<int, array<string, mixed>>
      */
-    private function hitsToDocuments(Index $index, iterable $hits): \Generator
+    private function hitsToDocuments(Index $index, iterable $hits, ?Highlighting $highlighting = null): \Generator
     {
         foreach ($hits as $hit) {
             /** @var array<string, mixed> $hit */
             $hit = $hit->getFields();
 
             unset($hit['_version_']);
+            $identifierFieldName = $index->getIdentifierField()->name;
 
-            if ('id' !== $index->getIdentifierField()->name) {
-                // Solr currently does not support set another identifier then id: https://github.com/php-cmsig/search/issues/87
+            if ('id' !== $identifierFieldName) {
+                // Solr currently does not support set another identifier then id: https://github.com/schranz-search/schranz-search/issues/87
                 $id = $hit['id'];
                 unset($hit['id']);
 
-                $hit[$index->getIdentifierField()->name] = $id;
+                $hit[$identifierFieldName] = $id;
             }
 
-            yield $this->marshaller->unmarshall($index->fields, $hit);
+            $document = $this->marshaller->unmarshall($index->fields, $hit);
+
+            if ($highlighting instanceof \Solarium\Component\Result\Highlighting\Highlighting) {
+                $highlightResult = $highlighting->getResult($hit[$identifierFieldName]);
+                \assert(
+                    $highlightResult instanceof \Solarium\Component\Result\Highlighting\Result,
+                    'Expected the highlighting exists.',
+                );
+
+                $document['_formatted'] ??= [];
+
+                \assert(
+                    \is_array($document['_formatted']),
+                    'Document with key "_formatted" expected to be array.',
+                );
+
+                foreach ($highlightResult->getFields() as $key => $value) {
+                    $fieldConfig = $index->getFieldByPath($key);
+                    // even non-multiple fields are returned as array we need to convert them to string
+                    if (!$fieldConfig->multiple && \is_array($value)) {
+                        $value = \implode(' ', $value);
+                    }
+
+                    $document['_formatted'][$key] = $value;
+                }
+            }
+
+            yield $document;
         }
     }
 
