@@ -51,13 +51,13 @@ final class TypesenseSearcher implements SearcherInterface
                 $data = $this->client->collections[$search->index->name]->documents[$search->filters[0]->identifier]->retrieve();
             } catch (ObjectNotFound) {
                 return new Result(
-                    $this->hitsToDocuments($search->index, []),
+                    $this->hitsToDocuments($search->index, [], []),
                     0,
                 );
             }
 
             return new Result(
-                $this->hitsToDocuments($search->index, [['document' => $data]]),
+                $this->hitsToDocuments($search->index, [['document' => $data]], []),
                 1,
             );
         }
@@ -95,24 +95,55 @@ final class TypesenseSearcher implements SearcherInterface
             $searchParams['sort_by'] = \implode(',', $sortBys);
         }
 
+        if ([] !== $search->highlightFields) {
+            $searchParams['highlight_fields'] = \implode(', ', $search->highlightFields);
+            $searchParams['highlight_start_tag'] = $search->highlightPreTag;
+            $searchParams['highlight_end_tag'] = $search->highlightPostTag;
+        }
+
         $data = $this->client->collections[$search->index->name]->documents->search($searchParams);
 
         return new Result(
-            $this->hitsToDocuments($search->index, $data['hits']),
+            $this->hitsToDocuments($search->index, $data['hits'], $search->highlightFields),
             $data['found'] ?? null,
         );
     }
 
     /**
      * @param iterable<array<string, mixed>> $hits
+     * @param array<string> $highlightFields
      *
      * @return \Generator<int, array<string, mixed>>
      */
-    private function hitsToDocuments(Index $index, iterable $hits): \Generator
+    private function hitsToDocuments(Index $index, iterable $hits, array $highlightFields): \Generator
     {
-        /** @var array{document: array<string, mixed>} $hit */
+        /** @var array{document: array<string, mixed>, highlight?: array<string, array{snippet: string}>} $hit */
         foreach ($hits as $hit) {
-            yield $this->marshaller->unmarshall($index->fields, $hit['document']);
+            $document = $this->marshaller->unmarshall($index->fields, $hit['document']);
+
+            if ([] === $highlightFields) {
+                yield $document;
+
+                continue;
+            }
+
+            $document['_formatted'] ??= [];
+
+            \assert(
+                \is_array($document['_formatted']),
+                'Document with key "_formatted" expected to be array.',
+            );
+
+            foreach ($highlightFields as $highlightField) {
+                \assert(
+                    isset($hit['highlight'][$highlightField]['snippet']),
+                    'Expected highlight field to be set.',
+                );
+
+                $document['_formatted'][$highlightField] = $hit['highlight'][$highlightField]['snippet'];
+            }
+
+            yield $document;
         }
     }
 
