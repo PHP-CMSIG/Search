@@ -173,7 +173,7 @@ final class RediSearchSchemaManager implements SchemaManagerInterface
                     'sortable' => $field->sortable,
                     'filterable' => $field->filterable,
                 ],
-                $field instanceof Field\ObjectField => $indexFields = \array_replace($indexFields, $this->createJsonFields($field->fields, $name, $jsonPath)),
+                $field instanceof Field\ObjectField => $indexFields = \array_replace($indexFields, $this->createJsonFields($field->fields, $name . '.', $jsonPath)),
                 $field instanceof Field\TypedField => \array_map(function ($fields, $type) use ($name, &$indexFields, $jsonPath, $field) {
                     $newJsonPath = $jsonPath . '[\'' . $type . '\']';
                     if ($field->multiple) {
