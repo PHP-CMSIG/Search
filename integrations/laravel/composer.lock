@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "291ebfd0d3772e28267072ccfe16d287",
+    "content-hash": "d6a97049d5c1f578b3ab5fd6913cf099",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -77,7 +77,7 @@
         },
         {
             "name": "cmsig/seal",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal",
@@ -805,12 +805,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6d0b9aff352d0e228623ec3aa7a1ce66b7981e11"
+                "reference": "d86d42ad0c75a020e0e4a7c734e9424ca86811cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6d0b9aff352d0e228623ec3aa7a1ce66b7981e11",
-                "reference": "6d0b9aff352d0e228623ec3aa7a1ce66b7981e11",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/d86d42ad0c75a020e0e4a7c734e9424ca86811cc",
+                "reference": "d86d42ad0c75a020e0e4a7c734e9424ca86811cc",
                 "shasum": ""
             },
             "require": {
@@ -874,7 +874,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-02-19T20:54:36+00:00"
+            "time": "2025-02-23T14:20:22+00:00"
         },
         {
             "name": "illuminate/view",
@@ -2190,12 +2190,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "373a11f2d03e71934a0023888edf3328a583e4ec"
+                "reference": "a75110076ac661a4a52792b5a1d286d113653a70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/373a11f2d03e71934a0023888edf3328a583e4ec",
-                "reference": "373a11f2d03e71934a0023888edf3328a583e4ec",
+                "url": "https://api.github.com/repos/symfony/string/zipball/a75110076ac661a4a52792b5a1d286d113653a70",
+                "reference": "a75110076ac661a4a52792b5a1d286d113653a70",
                 "shasum": ""
             },
             "require": {
@@ -2269,7 +2269,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-01-05T16:34:30+00:00"
+            "time": "2025-02-24T14:05:52+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2657,15 +2657,15 @@
         },
         {
             "name": "cmsig/seal-algolia-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-algolia-adapter",
-                "reference": "f278cb1f3b39f9714b62700d97682eada26f2eda"
+                "reference": "864153035940f37f1f0525da4eecc94888babed0"
             },
             "require": {
                 "algolia/algoliasearch-client-php": "^4.4",
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
             },
@@ -2749,14 +2749,14 @@
         },
         {
             "name": "cmsig/seal-elasticsearch-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-elasticsearch-adapter",
-                "reference": "27c9d6edce3e024e7a3d5edf37e81a883f95311a"
+                "reference": "ab3eec321e2984645b438033b7b149dbea91a83f"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "elasticsearch/elasticsearch": "^8.5.3",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
@@ -2844,14 +2844,14 @@
         },
         {
             "name": "cmsig/seal-loupe-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-loupe-adapter",
-                "reference": "ee050a81ad44cf889e2aa208c89bf91333abb93b"
+                "reference": "b007020e3716d43f4e05732970e2a3295b177bef"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "loupe/loupe": "^0.8 || ^0.9",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
@@ -2936,14 +2936,14 @@
         },
         {
             "name": "cmsig/seal-meilisearch-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-meilisearch-adapter",
-                "reference": "b482ac1c2d277c3c374244cd38e0094a5e38fbcb"
+                "reference": "d77abcf0cb4c96313e7f3ab158994064615783ba"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "meilisearch/meilisearch-php": "^1.2",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
@@ -3030,14 +3030,14 @@
         },
         {
             "name": "cmsig/seal-memory-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-memory-adapter",
-                "reference": "264676dad6f706a8482992b02f6bf513554cef2b"
+                "reference": "531d69ce63f545fce5135914623e1b77afa476fa"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "php": "^8.1"
             },
             "replace": {
@@ -3119,14 +3119,14 @@
         },
         {
             "name": "cmsig/seal-multi-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-multi-adapter",
-                "reference": "1f75abafbff4938c97bdae4907b97d3c3970e821"
+                "reference": "618c36597e0893c8e562cc6372ca73fe32b626a1"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
             },
@@ -3209,14 +3209,14 @@
         },
         {
             "name": "cmsig/seal-opensearch-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-opensearch-adapter",
-                "reference": "9055a99377c57716efbd4ed4dd4cf45b8d0b3cfe"
+                "reference": "0e74f56d6d6641b5e520904cd6b6ad8ff1ed873a"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "opensearch-project/opensearch-php": "^2.0",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
@@ -3305,14 +3305,14 @@
         },
         {
             "name": "cmsig/seal-read-write-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-read-write-adapter",
-                "reference": "2964f33b44fdc5a1434f77c4175b640b67cc2e55"
+                "reference": "5f2dc78820da4823f9bd7c6768ee42ac68563621"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0"
             },
@@ -3395,14 +3395,14 @@
         },
         {
             "name": "cmsig/seal-redisearch-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-redisearch-adapter",
-                "reference": "4143bdf3a0984cbcefc1f887cfda4cda3026588a"
+                "reference": "84288748b56108cad22218353560147d447ce29c"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "ext-json": "*",
                 "ext-redis": "^5 || ^6.0",
                 "php": "^8.1",
@@ -3489,14 +3489,14 @@
         },
         {
             "name": "cmsig/seal-solr-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-solr-adapter",
-                "reference": "ed78726f0d617a81dc822a1b40e59aa4736601cb"
+                "reference": "242166050c05ae2f364b9e302f51bc24533ec313"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0",
                 "solarium/solarium": "^6.3"
@@ -3586,14 +3586,14 @@
         },
         {
             "name": "cmsig/seal-typesense-adapter",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-typesense-adapter",
-                "reference": "1c9eec69e2eaf68bd0a268a525ba8bc040669194"
+                "reference": "beedc4647b3576d20ad66cd908c75e149ec67eac"
             },
             "require": {
-                "cmsig/seal": "^0.6",
+                "cmsig/seal": "^0.7",
                 "php": "^8.1",
                 "psr/container": "^1.0 || ^2.0",
                 "symfony/http-client": "^5.4 || ^6.0 || ^7.0",
@@ -3688,12 +3688,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "e067a82b658292f7ebd75fd1d96185c418e88222"
+                "reference": "320df7eb305fa3e8c98d85848af9e928eeee48a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/e067a82b658292f7ebd75fd1d96185c418e88222",
-                "reference": "e067a82b658292f7ebd75fd1d96185c418e88222",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/320df7eb305fa3e8c98d85848af9e928eeee48a4",
+                "reference": "320df7eb305fa3e8c98d85848af9e928eeee48a4",
                 "shasum": ""
             },
             "require": {
@@ -3786,7 +3786,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-20T14:30:20+00:00"
+            "time": "2025-02-24T21:50:11+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -4082,22 +4082,22 @@
         },
         {
             "name": "ezimuel/ringphp",
-            "version": "1.2.3",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezimuel/ringphp.git",
-                "reference": "648a9c3c8b5f2591a317d31aa7a18a784011b00d"
+                "reference": "5e4ee1dfc7a323b87873b83f17c69c76ba047793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezimuel/ringphp/zipball/648a9c3c8b5f2591a317d31aa7a18a784011b00d",
-                "reference": "648a9c3c8b5f2591a317d31aa7a18a784011b00d",
+                "url": "https://api.github.com/repos/ezimuel/ringphp/zipball/5e4ee1dfc7a323b87873b83f17c69c76ba047793",
+                "reference": "5e4ee1dfc7a323b87873b83f17c69c76ba047793",
                 "shasum": ""
             },
             "require": {
                 "ezimuel/guzzlestreams": "^3.0.1",
                 "php": ">=5.4.0",
-                "react/promise": "~2.0"
+                "react/promise": "^2.0 || ^3.0"
             },
             "replace": {
                 "guzzlehttp/ringphp": "self.version"
@@ -4133,9 +4133,9 @@
             ],
             "description": "Fork of guzzle/RingPHP (abandoned) to be used with elasticsearch-php",
             "support": {
-                "source": "https://github.com/ezimuel/ringphp/tree/1.2.3"
+                "source": "https://github.com/ezimuel/ringphp/tree/1.3.0"
             },
-            "time": "2025-01-14T12:59:43+00:00"
+            "time": "2025-02-24T10:29:27+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -5432,16 +5432,16 @@
         },
         {
             "name": "php-cs-fixer/shim",
-            "version": "v3.69.1",
+            "version": "v3.70.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/shim.git",
-                "reference": "e704b84e850c115336215dbaa0248327ddc7fedc"
+                "reference": "9302388f32d5181cd7238717860391396c592f36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/e704b84e850c115336215dbaa0248327ddc7fedc",
-                "reference": "e704b84e850c115336215dbaa0248327ddc7fedc",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/9302388f32d5181cd7238717860391396c592f36",
+                "reference": "9302388f32d5181cd7238717860391396c592f36",
                 "shasum": ""
             },
             "require": {
@@ -5478,9 +5478,9 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/shim/issues",
-                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.69.1"
+                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.70.0"
             },
-            "time": "2025-02-18T23:58:07+00:00"
+            "time": "2025-02-22T23:31:12+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -6301,12 +6301,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "cc91477665c1a8f991900c9e6758b60fc76de3c2"
+                "reference": "b8f8106369f265d9b31da3f33926714777a81202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cc91477665c1a8f991900c9e6758b60fc76de3c2",
-                "reference": "cc91477665c1a8f991900c9e6758b60fc76de3c2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b8f8106369f265d9b31da3f33926714777a81202",
+                "reference": "b8f8106369f265d9b31da3f33926714777a81202",
                 "shasum": ""
             },
             "require": {
@@ -6394,7 +6394,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-18T14:11:09+00:00"
+            "time": "2025-02-25T13:34:19+00:00"
         },
         {
             "name": "psr/cache",
@@ -6761,24 +6761,26 @@
         },
         {
             "name": "react/promise",
-            "version": "2.x-dev",
+            "version": "3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "1a8460931ea36dc5c76838fec5734d55c88c6831"
+                "reference": "5f80055cc21ba7bcd3989e4902061fc12e2bcc1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/1a8460931ea36dc5c76838fec5734d55c88c6831",
-                "reference": "1a8460931ea36dc5c76838fec5734d55c88c6831",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/5f80055cc21ba7bcd3989e4902061fc12e2bcc1d",
+                "reference": "5f80055cc21ba7bcd3989e4902061fc12e2bcc1d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
+                "phpstan/phpstan": "1.10.39 || 1.4.10",
+                "phpunit/phpunit": "^9.6 || ^7.5"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -6821,7 +6823,7 @@
             ],
             "support": {
                 "issues": "https://github.com/reactphp/promise/issues",
-                "source": "https://github.com/reactphp/promise/tree/v2.11.0"
+                "source": "https://github.com/reactphp/promise/tree/3.x"
             },
             "funding": [
                 {
@@ -6829,7 +6831,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-11-16T16:16:50+00:00"
+            "time": "2024-11-19T18:32:50+00:00"
         },
         {
             "name": "rector/rector",

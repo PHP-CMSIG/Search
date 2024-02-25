@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c207082c4ffeede83379e70fc76ba09c",
+    "content-hash": "be008e490a856e7f1c09b3e49688d05e",
     "packages": [
         {
             "name": "cmsig/seal",
-            "version": "0.6.x-dev",
+            "version": "0.7.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./../seal",
@@ -1039,16 +1039,16 @@
         },
         {
             "name": "php-cs-fixer/shim",
-            "version": "v3.69.1",
+            "version": "v3.70.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/shim.git",
-                "reference": "e704b84e850c115336215dbaa0248327ddc7fedc"
+                "reference": "9302388f32d5181cd7238717860391396c592f36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/e704b84e850c115336215dbaa0248327ddc7fedc",
-                "reference": "e704b84e850c115336215dbaa0248327ddc7fedc",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/9302388f32d5181cd7238717860391396c592f36",
+                "reference": "9302388f32d5181cd7238717860391396c592f36",
                 "shasum": ""
             },
             "require": {
@@ -1085,9 +1085,9 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/shim/issues",
-                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.69.1"
+                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.70.0"
             },
-            "time": "2025-02-18T23:58:07+00:00"
+            "time": "2025-02-22T23:31:12+00:00"
         },
         {
             "name": "phpstan/extension-installer",
@@ -1577,12 +1577,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "cc91477665c1a8f991900c9e6758b60fc76de3c2"
+                "reference": "b8f8106369f265d9b31da3f33926714777a81202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cc91477665c1a8f991900c9e6758b60fc76de3c2",
-                "reference": "cc91477665c1a8f991900c9e6758b60fc76de3c2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b8f8106369f265d9b31da3f33926714777a81202",
+                "reference": "b8f8106369f265d9b31da3f33926714777a81202",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1670,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-18T14:11:09+00:00"
+            "time": "2025-02-25T13:34:19+00:00"
         },
         {
             "name": "psr/http-factory",
