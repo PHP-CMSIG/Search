@@ -18,10 +18,9 @@ Here we collect different search engines which are around and could be interesti
 - `RediSearch <#redisearch>`__ - ``cmsig/seal-redisearch-adapter``
 - `Typesense <#typesense>`__ - ``cmsig/seal-typesense-adapter``
 - `Loupe <#loupe>`__ - ``cmsig/seal-loupe-adapter``
-- `Zinc Labs <#zinc-labs>`__ (work in progress `#79 <https://github.com/php-cmsig/search/pull/79>`__)
-- `Manticore Search <#manticore-search>`__ (work in progress `#103 <https://github.com/php-cmsig/search/pull/103>`__)
+- `Zinc Labs <#zinc-labs>`__ (help wanted `#79 <https://github.com/php-cmsig/search/pull/79>`__)
+- `Manticore Search <#manticore-search>`__ (help wanted `#103 <https://github.com/php-cmsig/search/pull/103>`__)
 - `ZendSearch <#zendsearch>`__
-- `Kailua Labs <#kailua-labs>`__
 - `TnTSearch <#tntsearch>`__
 - `Sonic <#sonic>`__
 - `Vespa <#vespa>`__
@@ -43,6 +42,7 @@ Here we collect different search engines which are around and could be interesti
 - `OpenAI <#openai>`__
 - `Jina <#jina>`__
 - `Paradedb <#paradedb>`__
+- `Kailua Labs / Objective Inc <#kailua-labs-objective-inc>`__ (Saas which  does not longer exists)
 
 Some more research links:
 -------------------------
@@ -183,12 +183,15 @@ A complete in PHP written implementation of the Lucene index. Not longer maintai
 
 - Implementation: `Zendsearch Implementation <https://github.com/handcraftedinthealps/zendsearch>`__
 
-Kailua Labs
-~~~~~~~~~~~
+Kailua Labs / Objective Inc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Later the company renamed to Objective Inc.
+Acquired by another company they not longer provides the search service (`reference <https://www.linkedin.com/posts/jlhasson_going-0-to-1-good-ship-brand-helping-builders-activity-7286482873799327744-D7g1/?utm_source=share&utm_medium=member_desktop>`__):
 
 Next-gen search made simple:
 
-- Server: No server only SaaS `https://www.kailualabs.com/ <https://www.kailualabs.com/>`__
+- Server: No server only SaaS `https://www.kailualabs.com/ <https://www.kailualabs.com/>`__ / `https://objective.inc/ <https://objective.inc/>`__
 
 TnTSearch
 ~~~~~~~~~~
