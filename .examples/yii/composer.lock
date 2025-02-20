@@ -6549,7 +6549,7 @@
             "dist": {
                 "type": "path",
                 "url": "./../../packages/seal-opensearch-adapter",
-                "reference": "ee5d4c6a701e5af30a6e39b469d1fc1990091422"
+                "reference": "9055a99377c57716efbd4ed4dd4cf45b8d0b3cfe"
             },
             "require": {
                 "cmsig/seal": "^0.6",
@@ -6569,7 +6569,8 @@
                 "phpstan/phpstan": "^1.10",
                 "phpstan/phpstan-phpunit": "^1.3",
                 "phpunit/phpunit": "^10.3",
-                "rector/rector": "^1.0"
+                "rector/rector": "^1.0",
+                "symfony/http-client": "^5.4 || ^6.0 || ^7.0"
             },
             "type": "library",
             "autoload": {
