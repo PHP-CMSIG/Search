@@ -34,8 +34,3 @@ parameters:
 			message: "#^Property App\\\\Asset\\\\AppAsset\\:\\:\\$css type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Asset/AppAsset.php
-
-		-
-			message: "#^Method App\\\\Tests\\\\Support\\\\CliTester\\:\\:grabShellOutput\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: tests/Support/CliTester.php

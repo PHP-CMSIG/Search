@@ -9,3 +9,4 @@ parameters:
         - tests
     excludePaths:
         - vendor/*
+        - tests/Support/_generated/*
