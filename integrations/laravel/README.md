@@ -38,6 +38,7 @@ The following adapters are available:
  - [OpensearchAdapter](../../packages/seal-opensearch-adapter): `cmsig/seal-opensearch-adapter`
  - [MeilisearchAdapter](../../packages/seal-meilisearch-adapter): `cmsig/seal-meilisearch-adapter`
  - [AlgoliaAdapter](../../packages/seal-algolia-adapter): `cmsig/seal-algolia-adapter`
+ - [LoupeAdapter](../../packages/seal-loupe-adapter): `cmsig/seal-loupe-adapter`
  - [SolrAdapter](../../packages/seal-solr-adapter): `cmsig/seal-solr-adapter`
  - [RediSearchAdapter](../../packages/seal-redisearch-adapter): `cmsig/seal-redisearch-adapter`
  - [TypesenseAdapter](../../packages/seal-typesense-adapter): `cmsig/seal-typesense-adapter`
@@ -134,6 +135,9 @@ return [
         ],
         'elasticsearch' => [
             'adapter' => 'elasticsearch://127.0.0.1:9200',
+        ],
+        'loupe' => [
+            'adapter' => 'loupe://var/indexes',
         ],
         'meilisearch' => [
             'adapter' => 'meilisearch://127.0.0.1:7700',
