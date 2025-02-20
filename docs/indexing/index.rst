@@ -335,9 +335,33 @@ After that you can use the ``reindex`` to index all documents:
 Bulk operations
 ---------------
 
-Currently no bulk operations are implemented. Add your opinion to the
-`Bulk issue <https://github.com/php-cmsig/search/issues/24>`_
-on GitHub.
+If you want to add or remove multiple documents at once you can use the ``bulk`` method.
+It requires the name of the index and which documents you want to save and/or remove.
+
+.. code-block:: php
+
+    <?php
+
+    $this->engine->bulk(
+        index: 'blog',
+        saveDocuments: [
+            [
+                'id' => '1',
+                'title' => 'My first blog post',
+                'description' => 'This is the description of my first blog post',
+                'tags' => ['UI', 'UX'],
+            ]
+        ],
+        deleteDocumentIdentifiers: [
+            1,
+        ],
+        bulkSize: 100,
+    );
+
+The ``bulk`` method can be used to add and remove documents at once. The ``saveDocuments`` and
+``deleteDocumentIdentifiers`` support any kind of ``iterable`` so you can use ``Generators`` to
+do performant bulk operations. The ``bulkSize`` is used to split the operations into smaller chunks
+and is by default ``100``.
 
 Next Steps
 ----------
