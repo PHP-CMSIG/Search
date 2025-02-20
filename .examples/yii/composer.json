@@ -82,7 +82,7 @@
         "yiisoft/router-fastroute": "^3.0",
         "yiisoft/translator": "^3.0",
         "yiisoft/translator-message-php": "^1.1",
-        "yiisoft/view": "^10.0",
+        "yiisoft/view": "^12.0",
         "yiisoft/yii-console": "^2.0",
         "yiisoft/yii-debug": "dev-master|dev-php80",
         "yiisoft/yii-event": "^2.0",

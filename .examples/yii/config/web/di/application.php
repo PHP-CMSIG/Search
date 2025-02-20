@@ -18,10 +18,4 @@ return [
             'fallbackHandler' => Reference::to(NotFoundHandler::class),
         ],
     ],
-    \Yiisoft\Yii\Middleware\Locale::class => [
-        '__construct()' => [
-            'supportedLocales' => $params['locale']['locales'],
-            'ignoredRequestUrlPatterns' => $params['locale']['ignoredRequests'],
-        ],
-    ],
 ];

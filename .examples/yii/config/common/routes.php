@@ -7,7 +7,7 @@ use Yiisoft\Router\Group;
 use Yiisoft\Router\Route;
 
 return [
-    Group::create('/{_language}')
+    Group::create()
         ->routes(
             Route::get('/')->action([SearchController::class, 'home'])->name('home'),
             Route::get('/algolia')->action([SearchController::class, 'algolia'])->name('algolia'),
