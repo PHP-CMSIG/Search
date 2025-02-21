@@ -53,13 +53,13 @@ final class LoupeSearcher implements SearcherInterface
 
             if (!$data) {
                 return new Result(
-                    $this->hitsToDocuments($search->index, []),
+                    $this->hitsToDocuments($search->index, [], []),
                     0,
                 );
             }
 
             return new Result(
-                $this->hitsToDocuments($search->index, [$data]),
+                $this->hitsToDocuments($search->index, [$data], []),
                 1,
             );
         }
@@ -83,6 +83,14 @@ final class LoupeSearcher implements SearcherInterface
             $searchParameters = $searchParameters->withHitsPerPage($search->limit);
         }
 
+        if ([] !== $search->highlightFields) {
+            $searchParameters = $searchParameters->withAttributesToHighlight(
+                $search->highlightFields,
+                $search->highlightPreTag,
+                $search->highlightPostTag,
+            );
+        }
+
         if ($search->offset && $search->limit && 0 === ($search->offset % $search->limit)) {
             $searchParameters = $searchParameters->withPage((int) (($search->offset / $search->limit) + 1));
         } elseif (null !== $search->limit && 0 !== $search->offset) {
@@ -101,7 +109,7 @@ final class LoupeSearcher implements SearcherInterface
         $result = $loupe->search($searchParameters);
 
         return new Result(
-            $this->hitsToDocuments($search->index, $result->getHits()),
+            $this->hitsToDocuments($search->index, $result->getHits(), $search->highlightFields),
             $result->getTotalHits(),
         );
     }
@@ -113,13 +121,40 @@ final class LoupeSearcher implements SearcherInterface
 
     /**
      * @param iterable<array<string, mixed>> $hits
+     * @param array<string> $highlightFields
      *
      * @return \Generator<int, array<string, mixed>>
      */
-    private function hitsToDocuments(Index $index, iterable $hits): \Generator
+    private function hitsToDocuments(Index $index, iterable $hits, array $highlightFields): \Generator
     {
         foreach ($hits as $hit) {
-            yield $this->marshaller->unmarshall($index->fields, $hit);
+            $document = $this->marshaller->unmarshall($index->fields, $hit);
+
+            if ([] === $highlightFields) {
+                yield $document;
+
+                continue;
+            }
+
+            $document['_formatted'] ??= [];
+
+            \assert(
+                \is_array($document['_formatted']),
+                'Document with key "_formatted" expected to be array.',
+            );
+
+            foreach ($highlightFields as $highlightField) {
+                \assert(
+                    isset($hit['_formatted'])
+                    && \is_array($hit['_formatted'])
+                    && isset($hit['_formatted'][$highlightField]),
+                    'Expected highlight field to be set.',
+                );
+
+                $document['_formatted'][$highlightField] = $hit['_formatted'][$highlightField];
+            }
+
+            yield $document;
         }
     }
 
