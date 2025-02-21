@@ -147,7 +147,7 @@ abstract class AbstractSearcherTestCase extends TestCase
         self::$taskHelper->waitForAll();
 
         $search = new SearchBuilder($schema, self::$searcher);
-        $search->addIndex(TestingHelper::INDEX_COMPLEX);
+        $search->index(TestingHelper::INDEX_COMPLEX);
         $search->addFilter(new Condition\SearchCondition('Blog'));
         $search->highlight(['title'], '<mark>', '</mark>');
 
@@ -184,7 +184,7 @@ abstract class AbstractSearcherTestCase extends TestCase
         );
 
         $search = new SearchBuilder($schema, self::$searcher);
-        $search->addIndex(TestingHelper::INDEX_COMPLEX);
+        $search->index(TestingHelper::INDEX_COMPLEX);
         $search->addFilter(new Condition\SearchCondition('Thing'));
 
         $this->assertSame([$documents[2]], [...$search->getResult()]);
