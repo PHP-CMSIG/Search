@@ -55,13 +55,13 @@ final class AlgoliaSearcher implements SearcherInterface
                 );
             } catch (NotFoundException) {
                 return new Result(
-                    $this->hitsToDocuments($search->index, []),
+                    $this->hitsToDocuments($search->index, [], []),
                     0,
                 );
             }
 
             return new Result(
-                $this->hitsToDocuments($search->index, [$data]),
+                $this->hitsToDocuments($search->index, [$data], []),
                 1,
             );
         }
@@ -106,29 +106,63 @@ final class AlgoliaSearcher implements SearcherInterface
             $searchParams['query'] = $query;
         }
 
+        if ([] !== $search->highlightFields) {
+            $searchParams['attributesToHighlight'] = $search->highlightFields;
+            $searchParams['highlightPreTag'] = $search->highlightPreTag;
+            $searchParams['highlightPostTag'] = $search->highlightPostTag;
+        }
+
         $data = $this->client->searchSingleIndex($indexName, $searchParams);
         \assert(\is_array($data) && isset($data['hits']) && \is_array($data['hits']), 'The "hits" array is expected to be returned by algolia client.');
         \assert(isset($data['nbHits']) && \is_int($data['nbHits']), 'The "nbHits" value is expected to be returned by algolia client.');
 
         return new Result(
-            $this->hitsToDocuments($search->index, $data['hits']),
+            $this->hitsToDocuments($search->index, $data['hits'], $search->highlightFields),
             $data['nbHits'] ?? null, // @phpstan-ignore-line
         );
     }
 
     /**
      * @param iterable<array<string, mixed>> $hits
+     * @param array<string> $highlightFields
      *
      * @return \Generator<int, array<string, mixed>>
      */
-    private function hitsToDocuments(Index $index, iterable $hits): \Generator
+    private function hitsToDocuments(Index $index, iterable $hits, array $highlightFields): \Generator
     {
         foreach ($hits as $hit) {
             // remove Algolia Metadata
             unset($hit['objectID']);
-            unset($hit['_highlightResult']);
 
-            yield $this->marshaller->unmarshall($index->fields, $hit);
+            $document = $this->marshaller->unmarshall($index->fields, $hit);
+
+            if ([] === $highlightFields) {
+                yield $document;
+
+                continue;
+            }
+
+            $document['_formatted'] ??= [];
+
+            \assert(
+                \is_array($document['_formatted']),
+                'Document with key "_formatted" expected to be array.',
+            );
+
+            foreach ($highlightFields as $highlightField) {
+                \assert(
+                    isset($hit['_highlightResult'])
+                    && \is_array($hit['_highlightResult'])
+                    && isset($hit['_highlightResult'][$highlightField])
+                    && \is_array($hit['_highlightResult'][$highlightField])
+                    && isset($hit['_highlightResult'][$highlightField]['value']),
+                    'Expected highlight field to be set.',
+                );
+
+                $document['_formatted'][$highlightField] = $hit['_highlightResult'][$highlightField]['value'];
+            }
+
+            yield $document;
         }
     }
 
