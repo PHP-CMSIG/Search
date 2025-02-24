@@ -55,13 +55,13 @@ final class MeilisearchSearcher implements SearcherInterface
                 }
 
                 return new Result(
-                    $this->hitsToDocuments($search->index, []),
+                    $this->hitsToDocuments($search->index, [], []),
                     0,
                 );
             }
 
             return new Result(
-                $this->hitsToDocuments($search->index, [$data]),
+                $this->hitsToDocuments($search->index, [$data], []),
                 1,
             );
         }
@@ -88,23 +88,56 @@ final class MeilisearchSearcher implements SearcherInterface
             $searchParams['sort'][] = $field . ':' . $direction;
         }
 
+        if ([] !== $search->highlightFields) {
+            $searchParams['attributesToHighlight'] = $search->highlightFields;
+            $searchParams['highlightPreTag'] = $search->highlightPreTag;
+            $searchParams['highlightPostTag'] = $search->highlightPostTag;
+        }
+
         $data = $searchIndex->search($query, $searchParams)->toArray();
 
         return new Result(
-            $this->hitsToDocuments($search->index, $data['hits']),
+            $this->hitsToDocuments($search->index, $data['hits'], $search->highlightFields),
             $data['totalHits'] ?? $data['estimatedTotalHits'] ?? null,
         );
     }
 
     /**
      * @param iterable<array<string, mixed>> $hits
+     * @param array<string> $highlightFields
      *
      * @return \Generator<int, array<string, mixed>>
      */
-    private function hitsToDocuments(Index $index, iterable $hits): \Generator
+    private function hitsToDocuments(Index $index, iterable $hits, array $highlightFields): \Generator
     {
         foreach ($hits as $hit) {
-            yield $this->marshaller->unmarshall($index->fields, $hit);
+            $document = $this->marshaller->unmarshall($index->fields, $hit);
+
+            if ([] === $highlightFields) {
+                yield $document;
+
+                continue;
+            }
+
+            $document['_formatted'] ??= [];
+
+            \assert(
+                \is_array($document['_formatted']),
+                'Document with key "_formatted" expected to be array.',
+            );
+
+            foreach ($highlightFields as $highlightField) {
+                \assert(
+                    isset($hit['_formatted'])
+                    && \is_array($hit['_formatted'])
+                    && isset($hit['_formatted'][$highlightField]),
+                    'Expected highlight field to be set.',
+                );
+
+                $document['_formatted'][$highlightField] = $hit['_formatted'][$highlightField];
+            }
+
+            yield $document;
         }
     }
 
