@@ -212,8 +212,8 @@ The field is required to be marked as ``filterable`` in the index configuration.
 
 .. note::
 
-    The ``GeoBoundingBoxCondition`` is currently not supported by ``Redisearch`` adapter.
-    See `this GitHub Issue <https://github.com/RediSearch/RediSearch/issues/680>`__ for more information.
+    The ``GeoBoundingBoxCondition`` is currently not supported by ``RediSearch`` adapter.
+    See `this GitHub Issue <https://github.com/PHP-CMSIG/search/issues/422>`__ for more information.
 
 OrCondition
 ~~~~~~~~~~~
@@ -393,6 +393,33 @@ your results but also ``sort`` them by a given field.
         ->getResult();
 
 The field is required to be marked as ``sortable`` in the index configuration.
+
+--------------
+
+Highlighting
+------------
+
+The abstraction can also be used to highlight the search term in the result.
+
+.. code-block:: php
+
+    <?php
+
+    use CmsIg\Seal\Search\Condition;
+
+    $result = $this->engine->createSearchBuilder('blog')
+        ->addFilter(new Condition\SearchCondition('Search Term'))
+        ->highlight(['title'], '<mark>', '</mark>');
+        ->getResult();
+
+    foreach ($result as $document) {
+        $titleWithHighlight = $document['_formatted']['title'] ?? '';
+    }
+
+.. note::
+
+    The ``Highlighting`` is currently not supported by ``RediSearch`` adapter.
+    See `this GitHub Issue <https://github.com/PHP-CMSIG/search/issues/491>`__ for more information.
 
 --------------
 
