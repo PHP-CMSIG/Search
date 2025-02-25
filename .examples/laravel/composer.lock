@@ -238,13 +238,13 @@
             "dist": {
                 "type": "path",
                 "url": "./../../integrations/laravel",
-                "reference": "f75a67adfae7aae66360e894094987cec181ac10"
+                "reference": "acc7b1d9838220e3b7d537fa62c4c8ff96962b81"
             },
             "require": {
                 "cmsig/seal": "^0.7",
-                "illuminate/console": "^8.0 || ^9.0 || ^10.0 || ^11.0",
-                "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0",
-                "illuminate/view": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+                "illuminate/console": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "illuminate/view": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
                 "php": "^8.1"
             },
             "conflict": {

@@ -7344,12 +7344,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "cebd36660068b236b35789228f183f296bcccaee"
+                "reference": "eec07a3f265e855f870e52b7c18c44822208e303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/cebd36660068b236b35789228f183f296bcccaee",
-                "reference": "cebd36660068b236b35789228f183f296bcccaee",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/eec07a3f265e855f870e52b7c18c44822208e303",
+                "reference": "eec07a3f265e855f870e52b7c18c44822208e303",
                 "shasum": ""
             },
             "conflict": {
@@ -7899,7 +7899,7 @@
                 "s-cart/s-cart": "<6.9",
                 "sabberworm/php-css-parser": ">=1,<1.0.1|>=2,<2.0.1|>=3,<3.0.1|>=4,<4.0.1|>=5,<5.0.9|>=5.1,<5.1.3|>=5.2,<5.2.1|>=6,<6.0.2|>=7,<7.0.4|>=8,<8.0.1|>=8.1,<8.1.1|>=8.2,<8.2.1|>=8.3,<8.3.1",
                 "sabre/dav": ">=1.6,<1.7.11|>=1.8,<1.8.9",
-                "samwilson/unlinked-wikibase": "<1.39.6|>=1.40,<1.40.2|>=1.41,<1.41.1",
+                "samwilson/unlinked-wikibase": "<1.42",
                 "scheb/two-factor-bundle": "<3.26|>=4,<4.11",
                 "sensiolabs/connect": "<4.2.3",
                 "serluck/phpwhois": "<=4.2.6",
@@ -8211,7 +8211,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-24T22:04:57+00:00"
+            "time": "2025-02-25T16:05:58+00:00"
         },
         {
             "name": "sebastian/cli-parser",
