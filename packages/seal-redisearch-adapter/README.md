@@ -61,6 +61,11 @@ redis://phpredis:phpredis@127.0.0.1:6379
 The `ext-redis` and `ext-json` PHP extension is required for this adapter.
 The `Redisearch` and `RedisJson` module is required for the Redis Server.
 
+## Limitation
+
+- [No GeoBoundingBox support](https://github.com/PHP-CMSIG/search/issues/422)
+- [No HIGHLIGHT support](https://github.com/PHP-CMSIG/search/issues/491)
+
 ## Authors
 
 - [Alexander Schranz](https://github.com/alexander-schranz/)
