@@ -9,7 +9,7 @@
 project = 'SEAL'
 copyright = '2023, Alexander Schranz'
 author = 'Alexander Schranz'
-release = '0.6'
+release = '0.7'
 html_title = 'SEAL Documentation'
 html_short_title = 'SEAL'
 html_favicon = '_static/icons/favicon.ico'
@@ -19,7 +19,7 @@ html_context = {
     "display_github": True, # Integrate GitHub
     "github_user": "schranz-search", # Username
     "github_repo": "schranz-search", # Repo name
-    "github_version": "0.6", # Version
+    "github_version": "0.7", # Version
     "conf_py_path": "/docs/", # Path in the checkout to the docs root
 }
 
