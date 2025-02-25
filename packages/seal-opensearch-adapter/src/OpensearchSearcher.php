@@ -54,13 +54,13 @@ final class OpensearchSearcher implements SearcherInterface
                 ]);
             } catch (Missing404Exception) {
                 return new Result(
-                    $this->hitsToDocuments($search->index, []),
+                    $this->hitsToDocuments($search->index, [], []),
                     0,
                 );
             }
 
             return new Result(
-                $this->hitsToDocuments($search->index, [$searchResult]),
+                $this->hitsToDocuments($search->index, [$searchResult], []),
                 1,
             );
         }
@@ -89,27 +89,69 @@ final class OpensearchSearcher implements SearcherInterface
             $body['size'] = $search->limit;
         }
 
+        if ([] !== $search->highlightFields) {
+            $highlightFields = [];
+            foreach ($search->highlightFields as $highlightField) {
+                $highlightFields[$highlightField] = [
+                    'pre_tags' => [$search->highlightPreTag],
+                    'post_tags' => [$search->highlightPostTag],
+                ];
+            }
+
+            $body['highlight'] = [
+                'fields' => $highlightFields,
+            ];
+        }
+
         $searchResult = $this->client->search([
             'index' => $search->index->name,
             'body' => $body,
         ]);
 
         return new Result(
-            $this->hitsToDocuments($search->index, $searchResult['hits']['hits']),
+            $this->hitsToDocuments($search->index, $searchResult['hits']['hits'], $search->highlightFields),
             $searchResult['hits']['total']['value'],
         );
     }
 
     /**
      * @param array<array<string, mixed>> $hits
+     * @param array<string> $highlightFields
      *
      * @return \Generator<int, array<string, mixed>>
      */
-    private function hitsToDocuments(Index $index, array $hits): \Generator
+    private function hitsToDocuments(Index $index, array $hits, array $highlightFields): \Generator
     {
-        /** @var array{_index: string, _source: array<string, mixed>} $hit */
+        /** @var array{_index: string, _source: array<string, mixed>, highlight?: mixed} $hit */
         foreach ($hits as $hit) {
-            yield $this->marshaller->unmarshall($index->fields, $hit['_source']);
+            $document = $this->marshaller->unmarshall($index->fields, $hit['_source']);
+
+            if ([] === $highlightFields) {
+                yield $document;
+
+                continue;
+            }
+
+            $document['_formatted'] ??= [];
+
+            \assert(
+                \is_array($document['_formatted']),
+                'Document with key "_formatted" expected to be array.',
+            );
+
+            foreach ($highlightFields as $highlightField) {
+                \assert(
+                    isset($hit['highlight'])
+                    && \is_array($hit['highlight'])
+                    && isset($hit['highlight'][$highlightField])
+                    && \is_array($hit['highlight'][$highlightField]),
+                    'Expected highlight field to be set.',
+                );
+
+                $document['_formatted'][$highlightField] = $hit['highlight'][$highlightField][0] ?? null;
+            }
+
+            yield $document;
         }
     }
 
