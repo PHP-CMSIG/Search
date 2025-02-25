@@ -1790,7 +1790,7 @@ With the following code we can add our first documents to our created index:
 
     class YourService {
         public function __construct(
-            private readonly \Schranz\Search\EngineInterface $engine
+            private readonly \CmsIg\Seal\EngineInterface $engine
         ) {
         }
 
@@ -1837,7 +1837,7 @@ many exists in the given index.
 
     class YourService {
         public function __construct(
-            private readonly \Schranz\Search\EngineInterface $engine
+            private readonly \CmsIg\Seal\EngineInterface $engine
         ) {
         }
 
@@ -1869,7 +1869,7 @@ we will filter by the ``tags`` field and get all documents which have the tag ``
 
     class YourService {
         public function __construct(
-            private readonly \Schranz\Search\EngineInterface $engine
+            private readonly \CmsIg\Seal\EngineInterface $engine
         ) {
         }
 
