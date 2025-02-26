@@ -9,3 +9,4 @@ parameters:
         - vendor/*
     ignoreErrors:
         - '#Undefined variable: \$this#'
+        - '#^Call to an undefined method PHPUnit\\Framework\\TestCase\:\:(.*)$#'

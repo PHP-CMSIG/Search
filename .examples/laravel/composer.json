@@ -1,26 +1,25 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9",
+        "laravel/framework": "^12.0",
+        "laravel/tinker": "^2.10.1",
         "cmsig/seal": "^0.7",
         "cmsig/seal-laravel-package": "^0.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
+        "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^10.5",
-        "pestphp/pest": "^2.16",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^3.7",
         "php-cs-fixer/shim": "^3.51",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan": "^1.10",
@@ -90,10 +89,11 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "post-install-cmd": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate --ansi"
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ],
+        "serve": "@php artisan serve",
         "test": [
             "Composer\\Config::disableProcessTimeout",
             "vendor/bin/pest"
@@ -129,5 +129,7 @@
             "php-http/discovery": true,
             "phpstan/extension-installer": true
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

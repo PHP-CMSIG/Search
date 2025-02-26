@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    'lifetime' => (int) env('SESSION_LIFETIME', 120),
 
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 
@@ -125,7 +125,6 @@ return [
     | Here you may change the name of the session cookie that is created by
     | the framework. Typically, you should not need to change this value
     | since doing so does not grant a meaningful security improvement.
-    |
     |
     */
 
