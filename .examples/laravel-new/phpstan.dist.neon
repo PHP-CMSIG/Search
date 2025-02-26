@@ -1,0 +1,12 @@
+includes:
+    - ../../phpstan.dist.neon
+
+parameters:
+    paths:
+        - app
+        - tests
+    excludePaths:
+        - vendor/*
+    ignoreErrors:
+        - '#Undefined variable: \$this#'
+        - '#^Call to an undefined method PHPUnit\\Framework\\TestCase\:\:(.*)$#'
