@@ -32,4 +32,11 @@ class Result extends \IteratorIterator
     {
         return $this->total;
     }
+
+    public static function empty(): static
+    {
+        return new static((static function (): \Generator {
+            yield from [];
+        })(), 0);
+    }
 }
