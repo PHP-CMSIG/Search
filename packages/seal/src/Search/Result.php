@@ -16,7 +16,7 @@ namespace CmsIg\Seal\Search;
 /**
  * @extends \IteratorIterator<int, array<string, mixed>, \Generator>
  */
-class Result extends \IteratorIterator
+final class Result extends \IteratorIterator
 {
     /**
      * @param \Generator<int, array<string, mixed>> $documents
@@ -35,7 +35,7 @@ class Result extends \IteratorIterator
 
     public static function empty(): static
     {
-        return new static((static function (): \Generator {
+        return new self((static function (): \Generator {
             yield from [];
         })(), 0);
     }
