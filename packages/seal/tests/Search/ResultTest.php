@@ -30,7 +30,7 @@ class ResultTest extends TestCase
 
     public function testCreateEmptyResult(): void
     {
-        $result = Result::empty();
+        $result = Result::createEmpty();
         $this->assertSame(0, $result->total());
         $this->assertSame([], \iterator_to_array($result));
     }

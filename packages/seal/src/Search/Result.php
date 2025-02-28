@@ -33,7 +33,7 @@ final class Result extends \IteratorIterator
         return $this->total;
     }
 
-    public static function empty(): static
+    public static function createEmpty(): static
     {
         return new self((static function (): \Generator {
             yield from [];
