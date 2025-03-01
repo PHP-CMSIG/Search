@@ -32,6 +32,7 @@ final class IntegerField extends AbstractField
         bool $searchable = false,
         bool $filterable = false,
         bool $sortable = false,
+        bool $facet = false,
         array $options = [],
     ) {
         if ($searchable) { // @phpstan-ignore-line
@@ -39,12 +40,13 @@ final class IntegerField extends AbstractField
         }
 
         parent::__construct(
-            $name,
-            $multiple,
-            $searchable,
-            $filterable,
-            $sortable,
-            $options,
+            name: $name,
+            multiple: $multiple,
+            searchable: $searchable,
+            filterable: $filterable,
+            sortable: $sortable,
+            facet: $facet,
+            options: $options,
         );
     }
 }

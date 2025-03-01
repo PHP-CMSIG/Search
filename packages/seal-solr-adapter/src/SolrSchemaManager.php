@@ -147,7 +147,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => $field->searchable ? 'text_general' : 'string',
                     'indexed' => $field->searchable,
-                    'docValues' => $field->filterable || $field->sortable,
+                    'docValues' => $field->filterable || $field->sortable || $field->facet,
                     'stored' => true, // required to be set to stored for highlighting
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
@@ -156,7 +156,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => 'boolean',
                     'indexed' => $field->searchable,
-                    'docValues' => $field->filterable || $field->sortable,
+                    'docValues' => $field->filterable || $field->sortable || $field->facet,
                     'stored' => false,
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
@@ -165,7 +165,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => 'pdate',
                     'indexed' => $field->searchable,
-                    'docValues' => $field->filterable || $field->sortable,
+                    'docValues' => $field->filterable || $field->sortable || $field->facet,
                     'stored' => false,
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
@@ -174,7 +174,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => 'pint',
                     'indexed' => $field->searchable,
-                    'docValues' => $field->filterable || $field->sortable,
+                    'docValues' => $field->filterable || $field->sortable || $field->facet,
                     'stored' => false,
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
@@ -183,7 +183,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => 'pfloat',
                     'indexed' => $field->searchable,
-                    'docValues' => $field->filterable || $field->sortable,
+                    'docValues' => $field->filterable || $field->sortable || $field->facet,
                     'stored' => false,
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
@@ -192,7 +192,7 @@ final class SolrSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => 'location',
                     'indexed' => $field->searchable,
-                    'docValues' => $field->filterable || $field->sortable,
+                    'docValues' => $field->filterable || $field->sortable || $field->facet, // @phpstan-ignore-line
                     'stored' => false,
                     'useDocValuesAsStored' => false,
                     'multiValued' => $isMultiple,
@@ -204,8 +204,8 @@ final class SolrSchemaManager implements SchemaManagerInterface
                 default => throw new \RuntimeException(\sprintf('Field type "%s" is not supported.', $field::class)),
             };
 
-            if ($field instanceof Field\TextField && $field->searchable && ($field->filterable || $field->sortable)) {
-                // add additional raw field for field which is filterable/sortable but also searchable
+            if ($field instanceof Field\TextField && $field->searchable && ($field->filterable || $field->sortable || $field->facet)) {
+                // add additional raw field for field which is filterable/sortable/facet but also searchable
                 $fieldSettings = $indexFields[$name];
 
                 $fieldSettings['name'] = $name . '.raw';

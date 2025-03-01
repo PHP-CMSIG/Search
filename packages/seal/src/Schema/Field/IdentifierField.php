@@ -20,6 +20,7 @@ namespace CmsIg\Seal\Schema\Field;
  * @property false $searchable
  * @property true $filterable
  * @property true $sortable
+ * @property false $facet
  *
  * @readonly
  */
@@ -33,6 +34,7 @@ final class IdentifierField extends AbstractField
             searchable: false,
             filterable: true,
             sortable: true,
+            facet: false,
             options: [],
         );
     }

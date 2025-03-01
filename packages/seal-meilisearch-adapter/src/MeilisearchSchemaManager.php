@@ -65,9 +65,14 @@ final class MeilisearchSchemaManager implements SchemaManagerInterface
             ],
         );
 
+        $filterableAndFacetFields = \array_unique([
+            ...$index->filterableFields,
+            ...$index->facetFields,
+        ]);
+
         $attributes = [
             'searchableAttributes' => $index->searchableFields,
-            'filterableAttributes' => $index->filterableFields,
+            'filterableAttributes' => $filterableAndFacetFields,
             'sortableAttributes' => $index->sortableFields,
         ];
 

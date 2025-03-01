@@ -81,45 +81,45 @@ final class OpensearchSchemaManager implements SchemaManagerInterface
             match (true) {
                 $field instanceof Field\IdentifierField => $properties[$name] = [
                     'type' => 'keyword',
-                    'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                    'doc_values' => $field->filterable,
+                    'index' => $field->searchable || $field->filterable || $field->facet, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                    'doc_values' => $field->filterable || $field->facet, // @phpstan-ignore-line
                 ],
                 $field instanceof Field\TextField => $properties[$name] = \array_replace([
                     'type' => 'text',
-                    'index' => $field->searchable || $field->filterable, // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                ], ($field->filterable || $field->sortable) ? [
+                    'index' => $field->searchable || $field->filterable || $field->facet, // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                ], ($field->filterable || $field->sortable || $field->facet) ? [
                     'fields' => [
                         'raw' => [
                             'type' => 'keyword',
-                            'index' => $field->searchable || $field->filterable, // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                            'doc_values' => $field->filterable,
+                            'index' => $field->searchable || $field->filterable || $field->facet, // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                            'doc_values' => $field->filterable || $field->facet,
                         ],
                     ],
                 ] : []),
                 $field instanceof Field\BooleanField => $properties[$name] = [
                     'type' => 'boolean',
-                    'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                    'doc_values' => $field->filterable,
+                    'index' => $field->searchable || $field->filterable || $field->facet, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                    'doc_values' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\DateTimeField => $properties[$name] = [
                     'type' => 'date',
-                    'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                    'doc_values' => $field->filterable,
+                    'index' => $field->searchable || $field->filterable || $field->facet, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                    'doc_values' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\IntegerField => $properties[$name] = [
                     'type' => 'integer',
-                    'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                    'doc_values' => $field->filterable,
+                    'index' => $field->searchable || $field->filterable || $field->facet, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                    'doc_values' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\FloatField => $properties[$name] = [
                     'type' => 'float',
-                    'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
-                    'doc_values' => $field->filterable,
+                    'index' => $field->searchable || $field->filterable || $field->facet, // @phpstan-ignore-line // TODO recheck doc_values https://github.com/php-cmsig/search/issues/65
+                    'doc_values' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\GeoPointField => $properties[$name] = [
                     'type' => 'geo_point',
                     'index' => $field->searchable,
-                    'doc_values' => $field->filterable || $field->sortable,
+                    'doc_values' => $field->filterable || $field->sortable || $field->facet, // @phpstan-ignore-line
                 ],
                 $field instanceof Field\ObjectField => $properties[$name] = [
                     'type' => 'object',

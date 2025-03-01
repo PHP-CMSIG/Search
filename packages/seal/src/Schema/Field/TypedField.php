@@ -34,6 +34,7 @@ final class TypedField extends AbstractField
         $searchable = false;
         $filterable = false;
         $sortable = false;
+        $facet = false;
 
         foreach ($types as $fields) {
             foreach ($fields as $field) {
@@ -48,16 +49,21 @@ final class TypedField extends AbstractField
                 if ($field->sortable) {
                     $sortable = true;
                 }
+
+                if ($field->facet) {
+                    $facet = true;
+                }
             }
         }
 
         parent::__construct(
-            $name,
-            $multiple,
-            $searchable,
-            $filterable,
-            $sortable,
-            $options,
+            name: $name,
+            multiple: $multiple,
+            searchable: $searchable,
+            filterable: $filterable,
+            sortable: $sortable,
+            facet: $facet,
+            options: $options,
         );
     }
 }
