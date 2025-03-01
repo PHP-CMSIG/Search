@@ -29,15 +29,17 @@ final class TextField extends AbstractField
         bool $searchable = true,
         bool $filterable = false,
         bool $sortable = false,
+        bool $facet = false,
         array $options = [],
     ) {
         parent::__construct(
-            $name,
-            $multiple,
-            $searchable,
-            $filterable,
-            $sortable,
-            $options,
+            name: $name,
+            multiple: $multiple,
+            searchable: $searchable,
+            filterable: $filterable,
+            sortable: $sortable,
+            facet: $facet,
+            options: $options,
         );
     }
 }

@@ -22,6 +22,7 @@ namespace CmsIg\Seal\Schema\Field;
  * ATTENTION: Different search engines support only one field for geopoint per index.
  *
  * @property false $searchable
+ * @property false $facet
  *
  * @readonly
  */
@@ -30,6 +31,7 @@ final class GeoPointField extends AbstractField
     /**
      * @param false $searchable
      * @param false $multiple
+     * @param false $facet
      * @param array<string, mixed> $options
      */
     public function __construct(
@@ -38,19 +40,25 @@ final class GeoPointField extends AbstractField
         bool $searchable = false,
         bool $filterable = false,
         bool $sortable = false,
+        bool $facet = false,
         array $options = [],
     ) {
         if ($searchable) { // @phpstan-ignore-line
             throw new \InvalidArgumentException('Searchability for GeoPointField is not yet implemented: https://github.com/php-cmsig/search/issues/97');
         }
 
+        if ($facet) { // @phpstan-ignore-line
+            throw new \InvalidArgumentException('Facet for GeoPointField is not yet implemented: <TODO create issue>');
+        }
+
         parent::__construct(
-            $name,
-            $multiple,
-            $searchable,
-            $filterable,
-            $sortable,
-            $options,
+            name: $name,
+            multiple: $multiple,
+            searchable: $searchable,
+            filterable: $filterable,
+            sortable: $sortable,
+            facet: $facet,
+            options: $options,
         );
     }
 }
