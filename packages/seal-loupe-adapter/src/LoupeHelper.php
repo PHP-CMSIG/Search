@@ -139,10 +139,15 @@ final class LoupeHelper
 
     private function createConfiguration(Index $index): Configuration
     {
+        $filterableAndFacetFields = \array_unique([
+            ...$index->filterableFields,
+            ...$index->facetFields,
+        ]);
+
         return Configuration::create()
             ->withPrimaryKey($index->getIdentifierField()->name)
             ->withSearchableAttributes(\array_map(fn (string $field) => $this->formatField($field), $index->searchableFields))
-            ->withFilterableAttributes(\array_map(fn (string $field) => $this->formatField($field), $index->filterableFields))
+            ->withFilterableAttributes(\array_map(fn (string $field) => $this->formatField($field), $filterableAndFacetFields))
             ->withSortableAttributes(\array_map(fn (string $field) => $this->formatField($field), $index->sortableFields));
     }
 

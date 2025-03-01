@@ -97,49 +97,49 @@ final class TypesenseSchemaManager implements SchemaManagerInterface
                     'name' => $name,
                     'type' => 'string',
                     'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet, // @phpstan-ignore-line
                 ],
                 $field instanceof Field\TextField => $fields[] = [
                     'name' => $name,
                     'type' => $field->multiple ? 'string[]' : 'string',
                     'optional' => true,
                     'index' => $field->searchable || $field->filterable,
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\BooleanField => $fields[] = [
                     'name' => $name,
                     'type' => $field->multiple ? 'bool[]' : 'bool',
                     'optional' => true,
                     'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\IntegerField => $fields[] = [
                     'name' => $name,
                     'type' => $field->multiple ? 'int64[]' : 'int64',
                     'optional' => true,
                     'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\DateTimeField => $fields[] = [
                     'name' => $name,
                     'type' => $field->multiple ? 'int64[]' : 'int64',
                     'optional' => true,
                     'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\FloatField => $fields[] = [
                     'name' => $name,
                     'type' => $field->multiple ? 'float[]' : 'float',
                     'optional' => true,
                     'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\GeoPointField => $fields[] = [
                     'name' => $name,
                     'type' => $field->multiple ? 'geopoint[]' : 'geopoint',
                     'optional' => true,
                     'index' => $field->searchable || $field->filterable, // @phpstan-ignore-line
-                    'facet' => $field->filterable,
+                    'facet' => $field->filterable || $field->facet, // @phpstan-ignore-line
                 ],
                 $field instanceof Field\ObjectField => $fields = [...$fields, ...$this->createObjectFields($name, $field)],
                 $field instanceof Field\TypedField => $fields = [...$fields, ...$this->createTypedFields($name, $field)],

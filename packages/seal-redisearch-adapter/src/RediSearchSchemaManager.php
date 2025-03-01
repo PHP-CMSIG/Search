@@ -122,8 +122,8 @@ final class RediSearchSchemaManager implements SchemaManagerInterface
             }
             $name = $prefix . $name;
 
-            // ignore all fields without search, sort or filterable activated
-            if (!$field->searchable && !$field->sortable && !$field->filterable) {
+            // ignore all fields without search, sort, filterable or facet activated
+            if (!$field->searchable && !$field->sortable && !$field->filterable && !$field->facet) {
                 continue;
             }
 
@@ -133,7 +133,7 @@ final class RediSearchSchemaManager implements SchemaManagerInterface
                     'type' => 'TAG',
                     'searchable' => $field->searchable,
                     'sortable' => $field->sortable,
-                    'filterable' => $field->filterable,
+                    'filterable' => $field->filterable || $field->facet, // @phpstan-ignore-line
                 ],
                 $field instanceof Field\TextField, $field instanceof Field\DateTimeField => $indexFields = \array_replace($indexFields, $field->searchable ? [
                     $name => [
@@ -143,13 +143,13 @@ final class RediSearchSchemaManager implements SchemaManagerInterface
                         'sortable' => false,
                         'filterable' => false,
                     ],
-                ] : [], $field->filterable || $field->sortable ? [
+                ] : [], $field->filterable || $field->facet || $field->sortable ? [
                     $name . '.raw' => [
                         'jsonPath' => $jsonPathRaw,
                         'type' => 'TAG',
                         'searchable' => false,
                         'sortable' => $field->sortable,
-                        'filterable' => $field->filterable,
+                        'filterable' => $field->filterable || $field->facet,
                     ],
                 ] : []),
                 $field instanceof Field\BooleanField => $indexFields[$name] = [
@@ -157,21 +157,21 @@ final class RediSearchSchemaManager implements SchemaManagerInterface
                     'type' => 'TAG',
                     'searchable' => $field->searchable,
                     'sortable' => $field->sortable,
-                    'filterable' => $field->filterable,
+                    'filterable' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\IntegerField, $field instanceof Field\FloatField => $indexFields[$name] = [
                     'jsonPath' => $jsonPath,
                     'type' => 'NUMERIC',
                     'searchable' => $field->searchable,
                     'sortable' => $field->sortable,
-                    'filterable' => $field->filterable,
+                    'filterable' => $field->filterable || $field->facet,
                 ],
                 $field instanceof Field\GeoPointField => $indexFields[$name] = [
                     'jsonPath' => $jsonPath,
                     'type' => 'GEO',
                     'searchable' => $field->searchable,
                     'sortable' => $field->sortable,
-                    'filterable' => $field->filterable,
+                    'filterable' => $field->filterable || $field->facet, // @phpstan-ignore-line
                 ],
                 $field instanceof Field\ObjectField => $indexFields = \array_replace($indexFields, $this->createJsonFields($field->fields, $name, $jsonPath)),
                 $field instanceof Field\TypedField => \array_map(function ($fields, $type) use ($name, &$indexFields, $jsonPath, $field) {
